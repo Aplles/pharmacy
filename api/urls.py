@@ -1,6 +1,10 @@
 from django.urls import path
 
-urlpatterns = [
+from api.views.product import ProductListView
+from api.views.product import ProductDetailView
 
+urlpatterns = [
+    path("", ProductListView.as_view(), name="index"),
+    path("product/<int:id>/", ProductDetailView.as_view(), name="detail")
 ]
 
