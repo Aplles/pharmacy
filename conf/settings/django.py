@@ -34,8 +34,6 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(
 INSTALLED_APPS = [
     'api',
     'models_app.apps.ModelsAppConfig',
-    "rest_framework",
-    'service_objects',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,3 +118,4 @@ MEDIA_URL = "/uploads/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'models_app.User'
