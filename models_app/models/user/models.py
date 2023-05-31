@@ -3,6 +3,7 @@ from django.db import models
 
 from django.utils.translation import gettext_lazy as _
 
+
 class User(AbstractUser):
     """Overriding the User model with the email field as primary"""
 
@@ -19,6 +20,7 @@ class User(AbstractUser):
     group = models.CharField(max_length=255, blank=True, null=True, verbose_name='Группа')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    email = models.CharField(max_length=255, verbose_name='Электронная почта')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
