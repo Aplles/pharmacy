@@ -10,7 +10,7 @@ class OrderRenderCreateView(View):
     def get(self, request, *args, **kwargs):
         cart = Cart.objects.get(user=request.user)
         cart_items = CartItem.objects.filter(cart=cart)
-        return render(request, "cart.html", context={
+        return render(request, "login.html", context={
             "cart_items": cart_items,
         })
 
@@ -20,11 +20,15 @@ class OrderRenderCreateView(View):
         number = ''  # предварительно создаем переменную psw
         for x in range(12):
             number = number + random.choice(list('123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'))
-        order = Order.objects.create(user=request.user, number=number, adress=request.POST['adress'],
-                                     total_price=request.POST['total_price'])
+        total_sum = 0
         for item in cart_items:
-            CartItemOrder.objects.create(order=order, cart_item=item)
-        return render(request, "cart.html", context={
+            total_sum += item.product.price * item.quantity
+        order = Order.objects.create(user=request.user, number=number, adress=request.POST['adress'],
+                                     total_price=total_sum)
+        for item in cart_items:
+            CartItemOrder.objects.create(order=order, product=item.product, quantity=item.quantity)
+            item.delete()
+        return render(request, "basket.html", context={
             "cart_items": cart_items,
         })
 
@@ -33,12 +37,23 @@ class OrderListView(View):
 
     def get(self, request, *args, **kwargs):
         orders = Order.objects.filter(user=request.user)
-        order_items_list = []
+        result = []
         for order in orders:
-            order_items_list.append(CartItemOrder.objects.filter(order=order))
+            result += [[order, CartItemOrder.objects.filter(order=order)]]
         return render(request, "user/index.html", context={
-            "orders": orders,
-            "items": order_items_list
+            "result": result,
+        })
+
+
+class OrderItemDeleteView(View):
+
+    def get(self, request, *args, **kwargs):
+        cart = Cart.objects.get(user=request.user)
+        cart_item = CartItem.objects.get(product_id=kwargs["id"], cart=cart)
+        cart_item.delete()
+        cart_items = CartItem.objects.filter(cart=cart)
+        return render(request, "login.html", context={
+            "cart_items": cart_items,
         })
 
 
@@ -52,3 +67,9 @@ class ReceptRender1View(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, "user/recept2.html")
+
+
+class UserSettingsRenderView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, "user/settings.html")

@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from models_app.models import Cart, Product, Category
@@ -61,19 +61,19 @@ class UserUpdateInfoView(View):
         if request.POST['email']:
             user.email = request.POST['email']
         user.save()
-        return render(request, 'user/account.html')
+        return render(request, 'user/settings.html')
 
 
 class UserUpdatePasswordView(View):
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        if request.POST['password']:
-            user.password = request.POST['password']
+        if request.POST['new_pass']:
+            user.set_password(request.POST['new_pass'])
         user.save()
-        return render(request, 'user/account.html')
+        return redirect('login')
 
 
 def logout_view(request):
     logout(request)
-    return render(request, 'index.html')
+    return redirect('index')

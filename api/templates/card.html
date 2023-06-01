@@ -28,27 +28,32 @@
         </form>
             </div>
             <div class="icon-cards">
-                {% if request.user.is_authenticated %}
-                <div class="icon">
-                  <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
-                  <a class="icon-cards-text" href="{%url 'logout'%}">Выйти</a>
-                </div>
-                {% else %}
-                <div class="icon">
-                  <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
-                  <a class="icon-cards-text" href="{%url 'login'%}">Войти</a>
-                </div>
-                {% endif %}
-                <div class="icon">
-                    <img  src="{% static 'img/like.png'%}" alt="">
-                    <a class="icon-cards-text" href="login.html">Заказы</a>  
-                    
-                </div>
-                <div class="icon">
-                    <img class="basket-icon"  src="{% static 'img/backet.png'%}" alt="">
-                    <a class="icon-cards-text" href="{% url 'cart' %}">Корзина</a>
-                </div>
-              </div>
+         {% if request.user.is_authenticated %}
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="{%url 'user_orders'%}">{{user}}</a>
+        </div>
+        {% else %}
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="{%url 'login'%}">Войти</a>
+        </div>
+        {% endif %}
+
+        <div class="icon">
+          <img src="{% static 'img/like.png'%}" alt="" />
+          {% if request.user.is_authenticated %}
+          <a class="icon-cards-text" href="{%url 'user_orders'%}">Заказы</a>
+          {% else %}
+          <a class="icon-cards-text">Заказы</a>
+          {% endif %}
+        </div>
+        <div class="icon">
+          <img class="basket-icon" src="{% static 'img/backet.png'%}" alt="" />
+          <a class="icon-cards-text" href="{% url 'cart' %}">Корзина</a>
+        </div>
+      </div>
+    </div>
     </div>
 
     <div class="content-box">
@@ -78,15 +83,19 @@
                 <h3>Цена от {{ product.price }} р.</h3>
                 {% if product.quantity %}
                     <p>В наличии </p>
+                {% if user.is_authenticated %}
+                  {% if added %}
+                    <button class="btn-in-basket">Уже в коризине</button>
+                  {% else %}
+                  <button class="btn-in-basket"><a href="{% url 'add_to_cart' product.id %}">В корзину</a></button>
+                  {% endif %}
                 {% else %}
-                    <p>Нет в наличии </p>
+                      <button disabled class="btn-in-basket"><a>В корзину</a></button>
+                {%endif%}
+                {% else %}
+                        <p>Нет в наличии </p>
                 {% endif %}
 
-                {% if added %}
-                    <button class="btn-in-basket">Уже в коризине</button>
-                {% else %}
-                    <button class="btn-in-basket"><a href="{% url 'add_to_cart' product.id %}">В корзину</a></button>
-                {% endif %}
             </div>
            </div>
         </div>
@@ -138,7 +147,7 @@
         <h4 class="finish-text">© 2023 По Рецепту <br> Все права защищены</h4>
     </footer>
     <script src="script.js">
-      
+
     </script>
 </body>
 </html>

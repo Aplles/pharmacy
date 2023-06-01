@@ -11,9 +11,12 @@ class CartRenderView(View):
         if request.user.is_authenticated:
             cart = Cart.objects.get(user=request.user)
             cart_items = CartItem.objects.filter(cart=cart)
+            total_sum = 0
+            for item in cart_items:
+                total_sum += item.product.price * item.quantity
             return render(request, "basket.html", context={
                 "cart_items": cart_items,
-                "summ": CartItem.objects.aggregate(Sum('product__price')),
+                "summ": total_sum,
             })
         else:
             return render(request, "basket.html")
@@ -35,9 +38,14 @@ class CartQuantityAddView(View):
         cart_items = CartItem.objects.get(cart=cart, product_id=kwargs["id"])
         cart_items.quantity += 1
         cart_items.save()
+        cart_items = CartItem.objects.filter(cart=cart)
+        total_sum = 0
+        for item in cart_items:
+            total_sum+=item.product.price*item.quantity
+
         return render(request, "basket.html", context={
-            "cart_items": CartItem.objects.filter(cart=cart),
-            "summ": CartItem.objects.aggregate(Sum('product__price')),
+            "cart_items":cart_items,
+            "summ": total_sum,
         })
 
 
@@ -48,7 +56,11 @@ class CartQuantityDelView(View):
         if not cart_items.quantity - 1 == 0:
             cart_items.quantity -= 1
             cart_items.save()
+        cart_items = CartItem.objects.filter(cart=cart)
+        total_sum = 0
+        for item in cart_items:
+            total_sum += item.product.price * item.quantity
         return render(request, "basket.html", context={
-            "cart_items": CartItem.objects.filter(cart=cart),
-            "summ": CartItem.objects.aggregate(Sum('product__price')),
+            "cart_items": cart_items,
+            "summ": total_sum,
         })
