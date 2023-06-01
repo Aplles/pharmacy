@@ -3,7 +3,7 @@ from api.views.user import UserLoginRegisterView, logout_view, UserUpdateInfoVie
 from api.views.cart import CartRenderView, CartDeleteAllView
 from api.views.cartitem import CartItemCreateView, CartItemDeleteView
 from api.views.product import ProductListView, ProductDetailView, ProductListByCategoryView, ProductForOrdersListView, \
-    ProductForCatalogListView
+    ProductForCatalogListView, SearchProductListView
 from api.views.order import OrderRenderCreateView, OrderListView
 
 urlpatterns = [
@@ -12,6 +12,8 @@ urlpatterns = [
     path("catalog/", ProductForCatalogListView.as_view(), name="catalog"),
     path("product/<int:id>/", ProductDetailView.as_view(), name="detail"),
     path("categories/<int:id>/product/", ProductListByCategoryView.as_view(), name="categories"),
+
+    path("search/", SearchProductListView.as_view(), name="search"),
 
     # cart
     path("cart/", CartRenderView.as_view(), name="cart"),

@@ -3,7 +3,7 @@ import sys
 from django.shortcuts import render
 from django.views import View
 from models_app.models import Product, Order, CartItemOrder
-from models_app.models import Category
+from models_app.models import Category, CartItem
 
 
 class ProductListView(View):
@@ -44,9 +44,10 @@ class ProductForOrdersListView(View):
 class ProductDetailView(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, "", context={
+        return render(request, "card.html", context={
             "product": Product.objects.get(id=kwargs["id"]),
-            "categories": Category.objects.all()
+            "categories": Category.objects.all(),
+            "added": True if CartItem.objects.filter(product_id=kwargs["id"]) else "",
         })
 
 
@@ -79,6 +80,16 @@ class ProductListByCategoryView(View):
             )
             context["active_category"] = kwargs.get("id")
         return render(request, "katalaog.html", context={
-            "products": products,
-            "categories": Category.objects.all()
-        } | context)
+                                                            "products": products,
+                                                            "categories": Category.objects.all()
+                                                        } | context)
+
+
+class SearchProductListView(View):
+
+    def get(self, request, *args, **kwargs):
+        products = Product.objects.filter(title__icontains=request.GET.dict().get("lname", ""))
+        return render(request, "katalaog.html", context={
+            "categories": Category.objects.all(),
+            "products": products
+        })

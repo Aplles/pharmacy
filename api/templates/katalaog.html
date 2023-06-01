@@ -22,22 +22,24 @@
       <h2 class="city-text2">Помощь покупателям</h2>
     </div>
     <div class="nav-bar">
-      <a href="{% url 'index'%}"
+      <a href="{% url 'index' %}"
         ><img class="nav-bar-logo" src="{% static 'img/Logotype.png'%}" alt=""
       /></a>
 
       <!-- Модальный -->
 
       <div class="nav-search-div">
-        <button class="search-form-nav-btn">
-          <img src="{% static 'img/Round.png'%}" alt="" />
-        </button>
-        <input type="search" id="lname" name="lname" placeholder="Поиск" />
+        <form action="{% url 'search' %}">
+            <button type="submit" class="search-form-nav-btn">
+              <img src="{% static 'img/Round.png'%}" alt=""/>
+            </button>
+            <input type="search" id="lname" name="lname" placeholder="Поиск" />
+        </form>
       </div>
       <div class="icon-cards">
         <div class="icon">
           <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
-          <a class="icon-cards-text" href="vhod.html">Войти</a>
+          <a class="icon-cards-text" href="{% url 'login' %}">Войти</a>
         </div>
         <div class="icon">
           <img src="{% static 'img/like.png'%}" alt="" />
@@ -45,7 +47,7 @@
         </div>
         <div class="icon">
           <img class="basket-icon" src="{% static 'img/backet.png'%}" alt="" />
-          <a class="icon-cards-text" href="basket.html">Корзина</a>
+          <a class="icon-cards-text" href="{% url 'cart' %}">Корзина</a>
         </div>
       </div>
     </div>

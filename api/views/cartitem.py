@@ -1,19 +1,22 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views import View
-from models_app.models import Cart
+from models_app.models import Cart, Product
 from models_app.models import CartItem
 
 
 class CartItemCreateView(View):
 
-    def post(self, request, *args, **kwargs):
-        cart = Cart.objects.get(user=request.user)
-        CartItem.objects.create(
-            product=kwargs["id"],
-            cart=cart,
-            quantity=request.POST.get("quantity", 1)
-        )
-        return redirect("index")
+    def get(self, request, *args, **kwargs):
+        if not CartItem.objects.filter(product=Product.objects.get(id=kwargs["id"])).exists():
+            CartItem.objects.create(
+                product=Product.objects.get(id=kwargs["id"]),
+                cart=Cart.objects.get(user=request.user),
+                quantity=request.GET.get("quantity", 1)
+            )
+        return render(request, "card.html", context={
+            "product": Product.objects.get(id=kwargs["id"]),
+            "added": True if CartItem.objects.filter(product_id=kwargs["id"]) else "",
+        })
 
 
 class CartItemDeleteView(View):
