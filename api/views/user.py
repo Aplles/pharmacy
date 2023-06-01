@@ -68,7 +68,8 @@ class UserUpdatePasswordView(View):
     def post(self, request, *args, **kwargs):
         user = request.user
         if request.POST['new_pass']:
-            user.password(request.POST['new_pass'])
+            if user.check_password(request.POST['pass']):
+                user.set_password(request.POST['new_pass'])
         user.save()
         return redirect('login')
 
