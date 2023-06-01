@@ -39,7 +39,7 @@
          {% if request.user.is_authenticated %}
         <div class="icon">
           <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
-          <a class="icon-cards-text" href="{%url 'logout'%}">Выйти</a>
+          <a class="icon-cards-text" href="{%url 'logout'%}">{{user}}</a>
         </div>
         {% else %}
         <div class="icon">
@@ -102,7 +102,7 @@
           <h3>{{product.price}}</h3>
           <button class="btn-in-basket">
             {% if user.is_authenticated %}
-            <a href="basket-inner.html">В корзину</a>{{user}}
+            <a href="basket-inner.html">В корзину</a>
             {% else %}
             <a disabled>В корзину</a>
             {%endif%}

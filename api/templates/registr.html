@@ -46,19 +46,20 @@
     </div>
     <!-- навигация по лекарствам -->
 
-    <form action="#">
+    <form action="{% url 'user' %}" method="post">
+      {% csrf_token %}
       <div class="container">
         <h1>Регистрация</h1>
         <hr />
         <label for="email"><b>Введите email</b></label>
         <input type="text" placeholder="Enter Email" name="email" required />
         <label for="email"><b>Введите Логин</b></label>
-        <input type="text" placeholder="Enter Login" name="email" required />
+        <input type="text" placeholder="Enter Login" name="username" required />
         <label for="psw"><b>Пароль</b></label>
         <input
           type="password"
           placeholder="Enter Password"
-          name="psw"
+          name="password"
           required />
 
         <label for="psw-repeat"><b>Повторите пароль</b></label>
@@ -67,6 +68,9 @@
           placeholder="Repeat Password"
           name="psw-repeat"
           required />
+        {% if error %}
+        <p style="color: red">{{error}}</p>
+        {%endif%}
         <hr />
         <button type="submit" class="registerbtn">
           <h3>Зарегистрироваться</h3>
