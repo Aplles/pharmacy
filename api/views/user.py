@@ -21,7 +21,8 @@ class UserRegisterRenderView(View):
 class UserLoginRegisterView(View):
 
     def get(self, request, *args, **kwargs):
-        user = authenticate(username=request.GET['username'], password=request.GET['password'])
+        a=request.GET['username']
+        user = authenticate(request, username=request.GET['username'], password=request.GET['password'])
         if user:
             login(request, user)
             products = Product.objects.all()
@@ -31,18 +32,20 @@ class UserLoginRegisterView(View):
                 "popular_products": products,
                 "categories": Category.objects.all()
             })
-        return render(request, 'login.html', context={'error': 'Неверный логин или пароль'})
+        return render(request, 'vhod.html', context={'error': 'Неверный логин или пароль'})
 
     def post(self, request, *args, **kwargs):
+        if request.POST["password"] != request.POST["psw-repeat"]:
+            return render(request, 'registr.html', context={'error': 'Пароли не совпадают'})
         try:
-            user = User.objects.create(username=request.POST['username'], password=request.POST['password'],
+            user = User.objects.create_user(username=request.POST['username'], password=request.POST['password'],
                                        email=request.POST['email'])
             cart = Cart.objects.create(
                 user=user
             )
-            return render(request, 'login.html')
-        except Exception:
-            return render(request, 'register.html', context={'error': 'Пользователь с таким именем уже существует'})
+            return render(request, 'vhod.html')
+        except Exception as e:
+            return render(request, 'registr.html', context={'error': 'Пользователь с таким именем уже существует'})
 
 
 class UserUpdateInfoView(View):

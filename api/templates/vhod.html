@@ -58,6 +58,9 @@
                 placeholder="Enter Password"
                 name="password"
                 required/>
+        {% if error %}
+        <p style="color: red">{{error}}</p>
+        {%endif%}
         <hr/>
         <button type="submit" class="registerbtn"><h3>Войти</h3></button>
     </div>
