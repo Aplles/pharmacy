@@ -17,6 +17,7 @@ class ProductListView(View):
             "categories": Category.objects.all()
         })
 
+
 class ProductForCatalogListView(View):
 
     def get(self, request, *args, **kwargs):
@@ -24,6 +25,7 @@ class ProductForCatalogListView(View):
             "products": Product.objects.all(),
             "categories": Category.objects.all()
         })
+
 
 class ProductForOrdersListView(View):
 
@@ -51,21 +53,32 @@ class ProductDetailView(View):
 class ProductListByCategoryView(View):
 
     def get(self, request, *args, **kwargs):
-        vacation = request.GET.get("vacation")
-        price_start = request.GET.get("price", 0)
-        price_end = request.GET.get("price", sys.maxsize)
-        if vacation or price_start or price_end:
+        vacation_1 = request.GET.get("vacation_1")
+        vacation_2 = request.GET.get("vacation_2")
+        price_start = request.GET.get("price_start") or 0
+        price_end = request.GET.get("price_end") or sys.maxsize
+        if price_start or price_end:
             products = Product.objects.filter(
                 price__gte=price_start,
                 price__lte=price_end,
-                vacation=vacation or Product.NOT_RECEPT,
-                category_id=kwargs["id"]
-            ).order_by(request.GET.get("order", "id"))
+            ).order_by(request.GET.get("radio", "id"))
         else:
-            products = Product.objects.filter(
+            products = Product.objects.all().order_by(request.GET.get("radio", "id"))
+        if vacation_1:
+            products = products.filter(
+                vacation=Product.NOT_RECEPT
+            )
+        if vacation_2:
+            products = products.filter(
+                vacation=Product.RECEPT
+            )
+        context = {}
+        if kwargs.get("id") != 0:
+            products = products.filter(
                 category_id=kwargs["id"]
             )
+            context["active_category"] = kwargs.get("id")
         return render(request, "katalaog.html", context={
             "products": products,
             "categories": Category.objects.all()
-        })
+        } | context)

@@ -45,18 +45,18 @@
 </div>
 <!-- навигация по лекарствам -->
 
-<form action="action_page.php">
+<form action="{% url 'user' %}">
     <div class="container">
         <h1>Войти</h1>
         <hr/>
         <label for="email"><b>Введите email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required/>
+        <input type="text" placeholder="Enter Email" name="username" required/>
 
         <label for="psw"><b>Пароль</b></label>
         <input
                 type="password"
                 placeholder="Enter Password"
-                name="psw"
+                name="password"
                 required/>
         <hr/>
         <button type="submit" class="registerbtn"><h3>Войти</h3></button>

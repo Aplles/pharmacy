@@ -4,7 +4,6 @@ from models_app.models import Cart
 from models_app.models import CartItem
 
 
-
 class CartItemCreateView(View):
 
     def post(self, request, *args, **kwargs):

@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Корзина</title>
+    <link rel="stylesheet" href="{% static 'css/backet-style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/backet-inner-style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div class="city-head">
+      <h2 class="city-text">
+        Ваш город: <a class="city-href" href="">Москва</a>
+      </h2>
+      <h2 class="city-text2">Помощь покупателям</h2>
+    </div>
+    <div class="nav-bar">
+      <a href="index.html"
+        ><img class="nav-bar-logo" src="{% static 'img/Logotype.png' %}" alt=""
+      /></a>
+      <div class="nav-search-div">
+        <button class="search-form-nav-btn">
+          <img src="{% static 'img/Round.png' %}" alt="" />
+        </button>
+        <input type="search" id="lname" name="lname" placeholder="Поиск" />
+      </div>
+      <div class="icon-cards">
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png' %}" alt="" />
+          <a class="icon-cards-text" href="vhod.html">Войти</a>
+        </div>
+        <div class="icon">
+          <img src="{% static 'img/like.png' %}" alt="" />
+          <a class="icon-cards-text" href="login.html">Заказы</a>
+        </div>
+        <div class="icon">
+          <img class="basket-icon" src="{% static 'img/backet.png' %}" alt="" />
+          <a class="icon-cards-text" href="basket.html">Корзина</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="href">
+      <a href="{% url 'index' %}">Главная ></a>
+      <a href="basket.html">Корзина</a>
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <div class="cart-is-empty">
+      <h1>Ваша корзина пуста</h1>
+      <img src="{% static 'img/shop-cart.png' %}" alt="" />
+      <p>Для выбора товара пепрейдите в каталог или воспользуйтесь поиском</p>
+    </div>
+
+    <div class="basket-all">
+      <div class="title-and-filters">
+        <h1>Корзина</h1>
+        <button class="clear-btn"><a href="#">Очистить корзину</a></button>
+      </div>
+      <div class="info-about">
+        <ul class="horisontal-ul">
+          <li>2 товарa в корзине</li>
+          <li class="quantity">Количество</li>
+          <li class="price">Цена</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="card-basket-all">
+          <div class="card">
+            <img class="img-medicament" src="img/image 1-1.png" alt="" />
+            <div class="title-card">
+              <h2>Текст рыбаТекст рыбаТекст рыбаТекст рыба</h2>
+              <h3>маленький текст</h3>
+            </div>
+            <div class="counter">
+              <button class="decrease" type="button">-</button>
+              <button class="increase" type="button">+</button>
+              <input
+                class="counter-quantity"
+                id="quantityid"
+                type="text"
+                name="field"
+                value="10" />
+            </div>
+            <h4 class="price-card">110₽</h4>
+            <button class="vector-btn"></button>
+          </div>
+        </div>
+        <div class="itog-card">
+          <h1 class="summa"></h1>
+          <button class="btn-in-basket">
+            <a href="login.html">Перейти к оформлению</a>
+          </button>
+        </div>
+      </div>
+    </div>
+    {% else %}
+        <div class="block-login">
+          <h4>Авторизируйтесь что бы смотреть</h4>
+        </div>
+    {% endif %}
+
+
+    <h2 class="title-product">Популярные товары</h2>
+    <div class="popular-product-two">
+      <div class="product-card-all">
+        <div class="product-card">
+          <img src="img/Untitled (3)/image 1.png" alt="" />
+          <p>
+            Билобил, 40 мг, капсулы <br />
+            №20
+          </p>
+          <h3>от 280 р.</h3>
+          <button class="btn-in-basket"><a href="">В корзину</a></button>
+        </div>
+        <div class="product-card">
+          <img src="img/Untitled (3)/image 1-2.png" alt="" />
+          <p>
+            Симгал, 20 мг, капсулы <br />
+            №20
+          </p>
+          <h3>от 480 р.</h3>
+          <button class="btn-in-basket"><a href="">В корзину</a></button>
+        </div>
+        <div class="product-card">
+          <img src="img/Untitled (3)/image 1-3.png" alt="" />
+          <p>
+            Фенастер- Тева , 5 мг, капсулы <br />
+            №30
+          </p>
+          <h3>от 612 р.</h3>
+          <button class="btn-in-basket"><a href="">В корзину</a></button>
+        </div>
+        <div class="product-card">
+          <img src="img/Untitled (3)/image 1-4.png" alt="" />
+          <p>
+            ЭМиореол, 10мг + 5мг, таблеток <br />
+            №7
+          </p>
+          <h3>от 1999 р.</h3>
+          <button class="btn-in-basket"><a href="">В корзину</a></button>
+        </div>
+        <div class="product-card">
+          <img src="img/Untitled (3)/image 1.png" alt="" />
+          <p>
+            Левомицетин Реневал, 500мг,<br />
+            таблеток №10
+          </p>
+          <h3>от 2690 р</h3>
+          <button class="btn-in-basket"><a href="">В корзину</a></button>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-content">
+        <div class="about-we">
+          <h1>О нас</h1>
+          <ul>
+            <li><a href="#">О сервисе </a></li>
+            <li><a href="#">Реквизиты</a></li>
+            <li><a href="#">Контакты</a></li>
+            <li><a href="#">Обратная связь</a></li>
+          </ul>
+        </div>
+        <div class="user">
+          <h1>Пользователям</h1>
+          <ul>
+            <li><a href="#">Как сделать заказ</a></li>
+            <li><a href="#">Доставка и оплата</a></li>
+            <li><a href="#">Условия возврата</a></li>
+            <li><a href="#">Вопросы и ответы</a></li>
+            <li><a href="#">Безопасность платежей</a></li>
+          </ul>
+        </div>
+        <div class="partner">
+          <h1>Партнерам</h1>
+          <ul>
+            <li><a href="#">Подключение вашей аптеки</a></li>
+            <li><a href="#">Производителям, брендам</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="line"></div>
+      <h4 class="finish-text">
+        © 2023 По Рецепту <br />
+        Все права защищены
+      </h4>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

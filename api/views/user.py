@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.views import View
 
-from models_app.models import Cart
+from models_app.models import Cart, Product, Category
 from models_app.models.user.models import User
 
 
@@ -24,7 +24,13 @@ class UserLoginRegisterView(View):
         user = authenticate(username=request.GET['username'], password=request.GET['password'])
         if user:
             login(request, user)
-            return render(request, 'index.html')
+            products = Product.objects.all()
+            if len(products) > 5:
+                products = products[:5]
+            return render(request, 'index.html', context={
+                "popular_products": products,
+                "categories": Category.objects.all()
+            })
         return render(request, 'login.html', context={'error': 'Неверный логин или пароль'})
 
     def post(self, request, *args, **kwargs):

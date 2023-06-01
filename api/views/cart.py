@@ -7,11 +7,14 @@ from models_app.models import Cart, CartItem
 class CartRenderView(View):
 
     def get(self, request, *args, **kwargs):
-        cart = Cart.objects.get(user=request.user)
-        cart_items = CartItem.objects.filter(cart=cart)
-        return render(request, "cart.html", context={
-            "cart_items": cart_items,
-        })
+        if request.user.is_authenticated:
+            cart = Cart.objects.get(user=request.user)
+            cart_items = CartItem.objects.filter(cart=cart)
+            return render(request, "basket.html", context={
+                "cart_items": cart_items,
+            })
+        else:
+            return render(request, "basket.html")
 
 
 class CartDeleteAllView(View):

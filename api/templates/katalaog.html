@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Каталог</title>
     <link rel="stylesheet" href="{% static 'css/katalog.css'%}" />
     <link rel="stylesheet" href="{% static 'css/style.css'%}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -75,41 +75,45 @@
     <div class="type-medicine">
       {% for category in categories %}
       <div class="card-medicine">
-        <a href="katalaog.html"> <h2>{{category.title}}</h2></a>
+        <a href="{% url 'categories' category.id %}"> <h2>{{category.title}}</h2></a>
         <img src="{{category.image.url}}" alt="" />
       </div>
       {% endfor %}
     </div>
     <div class="katalog-box">
-      <form class="filter-box">
+      {% if active_category %}
+        <form class="filter-box" action="{% url 'categories' active_category %}">
+      {% else %}
+          <form class="filter-box" action="{% url 'categories' 0 %}">
+      {% endif %}
         <p class="main-cat">
           <a class="main-cat" href="index.html">Главная</a> > Лекарства
         </p>
         <h1 class="torg-title">сортировать по:</h1>
         <div class="scroll-name-two radio">
           <label for="radio1" class="">
-            <input type="radio" name="radio" id="radio1" />
+            <input type="radio" name="radio" id="radio1" value="price"/>
             Сначала дешевле
           </label>
           <label for="radio2">
-            <input type="radio" name="radio" id="radio2" />
+            <input type="radio" name="radio" id="radio2" value="-price"/>
             Сначала дороже
           </label>
         </div>
         <h1 class="torg-title">Цена</h1>
         <div class="scroll-name-one">
-          <label for="">от <input type="text" name="" id="" /></label>
-          <label for="">до <input type="text" name="" id="" /></label>
+          <label for="">от <input type="text" name="price_start" id="" /></label>
+          <label for="">до <input type="text" name="price_end" id="" /></label>
         </div>
         <h1 class="torg-title">Рецептурный отпуск</h1>
         <div class="scroll-name-two">
           <ul>
             <li class="scroll-name-li">
-              <input class="scroll-check" id="html" type="checkbox" />
-              <label for="html">Без рецепта</label>
+              <input value="not recept" name="vacation_1" class="scroll-check" id="html_bot_recept" type="checkbox" />
+              <label for="html_bot_recept">Без рецепта</label>
             </li>
             <li>
-              <input id="html" type="checkbox" />
+              <input name="vacation_2" id="html" type="checkbox" value="Recept"/>
               <label for="html">По рецепту</label>
             </li>
           </ul>
@@ -117,11 +121,16 @@
         <button class="btn-in-filter">Применить</button>
       </form>
 
+        <form class="form-reset" action="{% url 'categories' 0 %}">
+            <button class="btn-in-filter">Сбросить</button>
+        </form>
+
+
       <div class="katalog-product">
         <div class="katalog-product-card-line1">
           {% for product in products%}
         <div class="product-card">
-          <img src="{{product.image.url}}" alt="" />
+          <img src="{{ product.image.url }}" alt="" />
           <a href=""
             ><p>
               {{product.title}}

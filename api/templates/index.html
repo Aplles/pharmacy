@@ -36,17 +36,25 @@
         <input type="search" id="lname" name="lname" placeholder="Поиск" />
       </div>
       <div class="icon-cards">
+         {% if request.user.is_authenticated %}
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="{%url 'logout'%}">Выйти</a>
+        </div>
+        {% else %}
         <div class="icon">
           <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
           <a class="icon-cards-text" href="{%url 'login'%}">Войти</a>
         </div>
+        {% endif %}
+
         <div class="icon">
           <img src="{% static 'img/like.png'%}" alt="" />
           <a class="icon-cards-text" href="login.html">Заказы</a>
         </div>
         <div class="icon">
           <img class="basket-icon" src="{% static 'img/backet.png'%}" alt="" />
-          <a class="icon-cards-text" href="basket.html">Корзина</a>
+          <a class="icon-cards-text" href="{% url 'cart' %}">Корзина</a>
         </div>
       </div>
     </div>
