@@ -30,10 +30,13 @@
 
       <!-- строка поиска -->
       <div class="nav-search-div">
-        <button class="search-form-nav-btn">
-          <img src="{% static 'img/Round.png'%}" alt="" />
-        </button>
-        <input type="search" id="lname" name="lname" placeholder="Поиск" />
+
+        <form action="{% url 'search' %}">
+            <button type="submit" class="search-form-nav-btn">
+              <img src="{% static 'img/Round.png'%}" alt=""/>
+            </button>
+            <input type="search" id="lname" name="lname" placeholder="Поиск" />
+        </form>
       </div>
       <div class="icon-cards">
          {% if request.user.is_authenticated %}
@@ -94,17 +97,17 @@
         {% for product in popular_products%}
         <div class="product-card">
           <img src="{{product.image.url}}" alt="" />
-          <a href=""
+          <a href="{% url 'detail' product.id  %}"
             ><p>
               {{product.title}}
             </p></a
           >
-          <h3>{{product.price}}</h3>
+          <h3>от {{product.price}} р.</h3>
           <button class="btn-in-basket">
             {% if user.is_authenticated %}
-            <a href="basket-inner.html">В корзину</a>{{user}}
+              <a href="{% url 'add_to_cart' product.id %}">В корзину</a>
             {% else %}
-            <a disabled>В корзину</a>
+              <a disabled>В корзину</a>
             {%endif%}
           </button>
         </div>

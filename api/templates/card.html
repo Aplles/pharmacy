@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О товаре</title>
+    <link rel="stylesheet" href="{% static 'css/style-card.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="city-head">
+        <h2 class="city-text">Ваш город: <a class="city-href" href="">Москва</a></h2>
+        <h2 class="city-text2">Помощь покупателям</h2>
+    </div>
+    <div class="nav-bar">
+        <a href="{% url 'index' %}"><img class="nav-bar-logo" src="{% static 'img/Logotype.png'%}" alt=""></a>
+<!-- Модальный -->
+            <div class="nav-search-div">
+                <form action="{% url 'search' %}">
+            <button type="submit" class="search-form-nav-btn">
+              <img src="{% static 'img/Round.png'%}" alt=""/>
+            </button>
+            <input type="search" id="lname" name="lname" placeholder="Поиск" />
+        </form>
+            </div>
+            <div class="icon-cards">
+                {% if request.user.is_authenticated %}
+                <div class="icon">
+                  <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+                  <a class="icon-cards-text" href="{%url 'logout'%}">Выйти</a>
+                </div>
+                {% else %}
+                <div class="icon">
+                  <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+                  <a class="icon-cards-text" href="{%url 'login'%}">Войти</a>
+                </div>
+                {% endif %}
+                <div class="icon">
+                    <img  src="{% static 'img/like.png'%}" alt="">
+                    <a class="icon-cards-text" href="login.html">Заказы</a>  
+                    
+                </div>
+                <div class="icon">
+                    <img class="basket-icon"  src="{% static 'img/backet.png'%}" alt="">
+                    <a class="icon-cards-text" href="{% url 'cart' %}">Корзина</a>
+                </div>
+              </div>
+    </div>
+
+    <div class="content-box">
+        <div class="card-tablet">
+            <img class="main-img" src="{{ product.image.url }}">
+        </div>
+        <div class="text-content-box">
+            <h1>{{ product.title }}</h1>
+           <div class="text-content-all">
+            <div class="givli1">
+                <ul>
+                    <li>Категория:</li>
+                    <li>Страна происхождения:</li>
+                    <li>Порядок отпуска:</li>
+                    <li>Срок годности:</li>
+                </ul>
+            </div>
+            <div class="givli2">
+                <ul>
+                   <li>{{ product.category.title }}</li>
+                   <li>{{ product.country }}</li>
+                   <li>{{ product.get_vacation_display }}</li>
+                   <li>{{ product.expiration_date }}</li>
+                </ul>
+            </div>
+            <div class="hug-card">
+                <h3>Цена от {{ product.price }} р.</h3>
+                {% if product.quantity %}
+                    <p>В наличии </p>
+                {% else %}
+                    <p>Нет в наличии </p>
+                {% endif %}
+
+                {% if added %}
+                    <button class="btn-in-basket">Уже в коризине</button>
+                {% else %}
+                    <button class="btn-in-basket"><a href="{% url 'add_to_cart' product.id %}">В корзину</a></button>
+                {% endif %}
+            </div>
+           </div>
+        </div>
+    </div>
+    <div class="text-overview">
+        <div class="overview-nav">
+        <ul>
+            <li><a href="">Описание</a></li>
+        </ul>
+        </div>
+        <div class="overview">
+            <p class="tone">
+                {{ product.description }}
+            </p>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="about-we">
+                <h1>О нас</h1>
+                <ul>
+                <li><a href="#">О сервисе </a></li>
+                <li><a href="#">Реквизиты</a></li>
+                <li><a href="#">Контакты</a></li>
+                <li><a href="#">Обратная связь</a></li>
+            </ul>
+            </div>
+            <div class="user">
+                <h1>Пользователям</h1>
+                <ul>
+                    <li><a href="#">Как сделать заказ</a></li>
+                    <li><a href="#">Доставка и оплата</a></li>
+                    <li><a href="#">Условия возврата</a></li>
+                    <li><a href="#">Вопросы и ответы</a></li>
+                    <li><a href="#">Безопасность платежей</a></li>
+                </ul>
+            </div>
+            <div class="partner">
+                <h1>Партнерам</h1>
+                <ul>
+                    <li><a href="#">Подключение вашей аптеки</a></li>
+                    <li><a href="#">Производителям, брендам</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="line"></div>
+        <h4 class="finish-text">© 2023 По Рецепту <br> Все права защищены</h4>
+    </footer>
+    <script src="script.js">
+      
+    </script>
+</body>
+</html>

@@ -9,7 +9,7 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1, verbose_name='Количество')
 
     def __str__(self):
-        return self.product
+        return self.product.title
 
     class Meta:
         db_table = 'cartitems'

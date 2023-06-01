@@ -26,10 +26,12 @@
         ><img class="nav-bar-logo" src="{% static 'img/Logotype.png' %}" alt=""
       /></a>
       <div class="nav-search-div">
-        <button class="search-form-nav-btn">
-          <img src="{% static 'img/Round.png' %}" alt="" />
-        </button>
-        <input type="search" id="lname" name="lname" placeholder="Поиск" />
+        <form action="{% url 'search' %}">
+            <button type="submit" class="search-form-nav-btn">
+              <img src="{% static 'img/Round.png'%}" alt=""/>
+            </button>
+            <input type="search" id="lname" name="lname" placeholder="Поиск" />
+        </form>
       </div>
       <div class="icon-cards">
         <div class="icon">
