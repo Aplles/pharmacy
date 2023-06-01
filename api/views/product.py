@@ -1,5 +1,6 @@
 import sys
 
+from django.db.models import Value
 from django.shortcuts import render
 from django.views import View
 from models_app.models import Product, Order, CartItemOrder, Cart
@@ -9,7 +10,9 @@ from models_app.models import Category, CartItem
 class ProductListView(View):
 
     def get(self, request, *args, **kwargs):
-        products = Product.objects.all()
+        products = Product.objects.all().annotate(added =Value(False))
+        for product in products:
+            product.added=True if CartItem.objects.filter(product_id=product.id) else ""
         if len(products) > 5:
             products = products[:5]
         return render(request, "index.html", context={
@@ -36,7 +39,7 @@ class ProductForOrdersListView(View):
             items = CartItemOrder.objects.filter(order=order)
             for item in items:
                 product_list.append(item.cart_item.product)
-        return render(request, "user_products.html", context={
+        return render(request, "user/products.html", context={
             "products": product_list
         })
 
@@ -64,9 +67,9 @@ class ProductListByCategoryView(View):
             products = Product.objects.filter(
                 price__gte=price_start,
                 price__lte=price_end,
-            ).order_by(request.GET.get("radio", "id"))
+            ).annotate(added=Value(False)).order_by(request.GET.get("radio", "id"))
         else:
-            products = Product.objects.all().order_by(request.GET.get("radio", "id"))
+            products = Product.objects.all().annotate(added=Value(False)).order_by(request.GET.get("radio", "id"))
         if vacation_1:
             products = products.filter(
                 vacation=Product.NOT_RECEPT
@@ -81,6 +84,8 @@ class ProductListByCategoryView(View):
                 category_id=kwargs["id"]
             )
             context["active_category"] = kwargs.get("id")
+        for product in products:
+            product.added = True if CartItem.objects.filter(product_id=product.id) else ""
         return render(request, "katalaog.html", context={
                                                             "products": products,
                                                             "categories": Category.objects.all()

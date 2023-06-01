@@ -5,7 +5,7 @@ from api.views.cart import CartRenderView, CartDeleteAllView, CartQuantityDelVie
 from api.views.cartitem import CartItemCreateView, CartItemDeleteView
 from api.views.product import ProductListView, ProductDetailView, ProductListByCategoryView, ProductForOrdersListView, \
     ProductForCatalogListView, SearchProductListView
-from api.views.order import OrderRenderCreateView, OrderListView
+from api.views.order import OrderRenderCreateView, OrderListView, ReceptRenderView,ReceptRender1View
 
 urlpatterns = [
     # product
@@ -29,7 +29,6 @@ urlpatterns = [
 
     # order
     path("order/", OrderRenderCreateView.as_view(), name="order"),
-    path("order/list/", OrderRenderCreateView.as_view(), name="order"),
 
     # user
     path('user/', UserLoginRegisterView.as_view(), name='user'),
@@ -38,6 +37,8 @@ urlpatterns = [
     path('user/', UserLoginRegisterView.as_view(), name='user'),
     path('user/logout/', logout_view, name='logout'),
     path('user/orders/', OrderListView.as_view(), name='user_orders'),
+    path('user/recept/', ReceptRenderView.as_view(), name='recept'),
+    path('user/recept1/', ReceptRender1View.as_view(), name='recept1'),
     path('user/products/', ProductForOrdersListView.as_view(), name='user_products'),
     path('user/change_info/', UserUpdateInfoView.as_view(), name='user_info'),
     path('user/change_pass/', UserUpdatePasswordView.as_view(), name='user_pass'),

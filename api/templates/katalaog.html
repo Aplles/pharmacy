@@ -133,14 +133,18 @@
           {% for product in products%}
         <div class="product-card">
           <img src="{{ product.image.url }}" alt="" />
-          <a href=""
+          <a href="{%url 'detail' product.pk%}"
             ><p>
               {{product.title}}
             </p></a
           >
           <h3>{{product.price}}</h3>
           <button class="btn-in-basket">
-            <a href="basket-inner.html">В корзину</a>
+            {% if product.added %}
+                <a >Уже в корзине</a>
+              {% else %}
+              <a href="{% url 'add_to_cart' product.id %}">В корзину</a>
+              {% endif %}
           </button>
         </div>
         {% endfor %}
