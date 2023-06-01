@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import render
 from django.views import View
 
@@ -12,6 +13,7 @@ class CartRenderView(View):
             cart_items = CartItem.objects.filter(cart=cart)
             return render(request, "basket.html", context={
                 "cart_items": cart_items,
+                "summ":  CartItem.objects.aggregate(Sum('product__price')),
             })
         else:
             return render(request, "basket.html")

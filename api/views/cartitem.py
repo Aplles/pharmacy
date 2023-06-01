@@ -7,7 +7,7 @@ from models_app.models import CartItem
 class CartItemCreateView(View):
 
     def get(self, request, *args, **kwargs):
-        if not CartItem.objects.filter(product=Product.objects.get(id=kwargs["id"])).exists():
+        if not CartItem.objects.filter(product=Product.objects.get(id=kwargs["id"]), cart=Cart.objects.get(user=request.user)).exists():
             CartItem.objects.create(
                 product=Product.objects.get(id=kwargs["id"]),
                 cart=Cart.objects.get(user=request.user),
@@ -15,7 +15,9 @@ class CartItemCreateView(View):
             )
         return render(request, "card.html", context={
             "product": Product.objects.get(id=kwargs["id"]),
-            "added": True if CartItem.objects.filter(product_id=kwargs["id"]) else "",
+            "added": True if CartItem.objects.filter(product_id=kwargs["id"],
+                                                     cart=Cart.objects.get(user=request.user)
+                                                     ).exists() else "",
         })
 
 

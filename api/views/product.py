@@ -2,7 +2,7 @@ import sys
 
 from django.shortcuts import render
 from django.views import View
-from models_app.models import Product, Order, CartItemOrder
+from models_app.models import Product, Order, CartItemOrder, Cart
 from models_app.models import Category, CartItem
 
 
@@ -47,7 +47,9 @@ class ProductDetailView(View):
         return render(request, "card.html", context={
             "product": Product.objects.get(id=kwargs["id"]),
             "categories": Category.objects.all(),
-            "added": True if CartItem.objects.filter(product_id=kwargs["id"]) else "",
+            "added": True if CartItem.objects.filter(product_id=kwargs["id"],
+                                                     cart=Cart.objects.get(user=request.user)
+                                                     ) else "",
         })
 
 
