@@ -1,0 +1,381 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
+}
+ul {
+  list-style: none;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+.city-head {
+  margin-top: 1vw;
+  margin-left: 1.3vw;
+  font-weight: 100;
+  font-size: 0.63vw;
+  line-height: 120%;
+  display: flex;
+}
+.city-href {
+  text-decoration-line: underline;
+  font-weight: 400;
+  color: #26a55e;
+}
+.city-text {
+  font-weight: 400;
+}
+.city-text2 {
+  font-weight: 400;
+  padding-left: 79%;
+}
+.nav-bar {
+  display: flex;
+  margin-top: 2%;
+}
+.nav-bar-logo {
+  height: 3vw;
+}
+.nav-katalog-inner {
+  display: flex;
+  align-items: center;
+}
+.Frame-katalog {
+  padding-left: 1vw;
+  width: 1vw;
+  height: 0.8vw;
+}
+.nav-katalog-inner h2 {
+  padding-left: 0.6vw;
+  font-weight: 700;
+  font-size: 0.8vw;
+  line-height: 1.2vw;
+  color: #6d6d6d;
+}
+.nav-katalog-btn {
+  background-color: #fff;
+  border: 1px solid #c5c5c5;
+  border-radius: 8px;
+  width: 6.5vw;
+}
+
+input[type="search"] {
+  margin-left: 3.2vw;
+  width: 60vw;
+  height: 2.7vw;
+  border: #ccc;
+  outline: none;
+  border: 1px solid #ffffff;
+}
+
+input[type="search"]:focus {
+  border: 1px solid #c5c5c5;
+  border-radius: 8px;
+}
+input {
+  padding-left: 3vw;
+}
+.search-form-nav-btn {
+  background-color: #fff;
+  border: none;
+  margin-left: 3.7vw;
+  margin-top: 0.5vw;
+  position: absolute;
+  height: 2vw;
+  width: 2vw;
+}
+.search-form-nav-btn img {
+  width: 1vw;
+  height: 0.95vw;
+}
+.icon-cards-text {
+  color: black;
+  font-weight: 500;
+  font-size: 0.8vw;
+  line-height: 120%;
+}
+.icon-cards {
+  display: flex;
+  margin-left: 0vw;
+  width: 4vw;
+}
+.icon-cards img {
+  width: 1.3vw;
+  height: 1.3vw;
+  padding-left: 0.7vw;
+}
+
+.icon {
+  margin-left: 2vw;
+}
+.basket-icon {
+  width: 20vw;
+}
+
+.banner {
+  margin-top: 1.3vw;
+  background-image: url(img/лого\ 1.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 50vw;
+}
+.banner-katalog-btn {
+  margin-top: 48vw;
+  margin-left: 42%;
+  width: 20vw;
+  height: 3.5vw;
+  border: none;
+  background: #ec8e8e;
+  border-radius: 20px;
+}
+.banner-katalog-btn a {
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  font-size: 1.5vw;
+  font-weight: 400;
+}
+
+.modal {
+  display: none; /* Скрыто по умолчанию */
+  position: fixed; /* Оставаться на месте */
+  z-index: 1; /* Сидеть на вершине */
+  left: 0;
+  top: 0;
+  width: 100%; /* Полная ширина */
+  height: 100%; /* Полная высота */
+}
+
+/* Модальное содержание/коробка */
+.modal-content {
+  background-color: #fefefe;
+  margin: 8.1% 16%; /* 15% сверху и по центру */
+  padding: 1vw;
+  border: 1px solid #c5c5c5;
+
+  width: 64vw;
+  height: 32.4vw;
+}
+
+/* Кнопка закрытия */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-kat {
+  align-items: center;
+
+  display: flex;
+  margin-top: 0.2vw;
+  justify-content: center;
+  border: 1px solid #c5c5c5;
+  border-radius: 8px;
+  width: 6.5vw;
+  height: 2.2vw;
+}
+.btn-kat h2 {
+  margin-left: 0.7vw;
+  color: #6d6d6d;
+  font-size: 0.86vw;
+}
+.all-modal-content {
+  width: 50vw;
+  height: 10vw;
+  display: flex;
+}
+
+.cont1 li {
+  list-style: none;
+  margin-top: 1vw;
+  font-size: 0.7vw;
+  font-weight: 500;
+}
+.title-cont2 {
+  font-size: 0.9vw;
+}
+.title-cont3 {
+  font-size: 0.9vw;
+}
+.cont2 li {
+  margin-top: 0.8vw;
+  font-size: 0.8vw;
+  color: black;
+  font-weight: 500;
+}
+.cont3 li {
+  font-weight: 500;
+  font-size: 0.8vw;
+  margin-top: 0.8vw;
+}
+.cont2 {
+  margin-left: 3vw;
+}
+.cont3 {
+  margin-left: 8vw;
+}
+.vitamin-cont h2 {
+  font-size: 1vw;
+}
+.vitamin-cont li {
+  margin-top: 0.6vw;
+}
+.vitamin-cont {
+  margin-top: 2vw;
+}
+@media (min-width: 1500) and (max-width: 1700px) {
+  .cont1 li {
+    list-style: none;
+    margin-top: 0.5vw;
+  }
+}
+@media (max-width: 1400px) {
+  .notification {
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-top: -3vw;
+    margin-left: 2vw;
+    width: 1.3vw;
+    height: 1.3vw;
+    background: #26a55e;
+    border-radius: 25px;
+  }
+  .notification2 {
+    position: absolute;
+    background-color: #26a55e;
+    width: 1.7vw;
+    height: 1.3vw;
+    margin-top: -3vw;
+    border-radius: 25px;
+    margin-left: 2.3vw;
+  }
+  .cont1 li {
+    list-style: none;
+    margin-top: 0.5vw;
+  }
+}
+.market-nav {
+  margin-top: 0.3vw;
+  margin-left: 28vw;
+}
+.market-nav a {
+  color: black;
+  font-weight: 430;
+  font-size: 0.75vw;
+}
+ul.hr li {
+  display: inline; /* Отображать как строчный элемент */
+  margin-right: 4.5vw; /* Отступ слева */
+}
+.box-ordering {
+  display: flex;
+  margin-left: 12vw;
+  margin-top: 1.5vw;
+}
+.card-ordering {
+  display: flex;
+}
+ul.ordering-nav-ul li {
+  display: inline;
+}
+
+.ordering-content-filter {
+  margin-top: 2vw;
+}
+
+.container h1 {
+  font-size: 0.9vw;
+}
+.container b {
+  font-size: 0.9vw;
+}
+.container {
+  width: 40vw;
+  margin-left: 20vw;
+  margin-top: 2vw;
+}
+
+/* Full-width input fields */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 1vw;
+  margin: 0.4vw 0 1vw 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  font-size: 0.7vw;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  background-color: #ddd;
+  outline: none;
+  font-size: 0.7vw;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit/register button */
+.registerbtn {
+  background-color: #26a55e;
+  color: white;
+  height: 2.5vw;
+  margin: 0.2vw 0;
+  border: none;
+  cursor: pointer;
+  width: 11vw;
+  border-radius: 10px;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+.signin p {
+  font-size: 0.8vw;
+}
+.registerbtn h3 {
+  font-size: 0.8vw;
+}
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2%;
+}
+.icon {
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 2vw;
+}
+
+.icon-cards {
+  display: flex;
+  width: auto;
+  margin-left: 0vw;
+  margin-right: 55px;
+}

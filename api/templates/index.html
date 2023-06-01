@@ -1,0 +1,210 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Главная</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div class="city-head">
+      <h2 class="city-text">
+        Ваш город: <a class="city-href" href="">Москва</a>
+      </h2>
+      <h2 class="city-text2">Помощь покупателям</h2>
+    </div>
+    <div class="nav-bar">
+      <!-- навигация -->
+      <a href="{% url 'index'%}"
+        ><img class="nav-bar-logo" src="{% static 'img/Logotype.png'%}" alt=""
+      /></a>
+
+      <!-- Модальный -->
+
+      <!-- строка поиска -->
+      <div class="nav-search-div">
+        <button class="search-form-nav-btn">
+          <img src="{% static 'img/Round.png'%}" alt="" />
+        </button>
+        <input type="search" id="lname" name="lname" placeholder="Поиск" />
+      </div>
+      <div class="icon-cards">
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="{%url 'login'%}">Войти</a>
+        </div>
+        <div class="icon">
+          <img src="{% static 'img/like.png'%}" alt="" />
+          <a class="icon-cards-text" href="login.html">Заказы</a>
+        </div>
+        <div class="icon">
+          <img class="basket-icon" src="{% static 'img/backet.png'%}" alt="" />
+          <a class="icon-cards-text" href="basket.html">Корзина</a>
+        </div>
+      </div>
+    </div>
+    <!-- навигация по лекарствам -->
+
+    <div class="banner">
+      <button class="banner-katalog-btn">
+        <a href="{% url 'catalog'%}">Каталог</a>
+      </button>
+    </div>
+    <div class="content">
+      <div class="card-content">
+        <img src="{% static 'img/drug.png'%}" alt="" />
+        <p>Тут размещены товары крупнейших аптек города</p>
+      </div>
+      <div class="card-content">
+        <img src="{% static 'img/drug.png'%}" alt="" />
+        <p>Цены и наличие товара отображается в реальном времени</p>
+      </div>
+      <div class="card-content">
+        <img src="{% static 'img/drug.png'%}" alt="" />
+        <p>Выбирайте по лучшей цене и забирай в любом удобном месте</p>
+      </div>
+    </div>
+
+    <div class="type-medicine">
+      {% for category in categories %}
+      <div class="card-medicine">
+        <a href="katalaog.html"> <h2>{{category.title}}</h2></a>
+        <img src="{{category.image.url}}" alt="" />
+      </div>
+      {% endfor %}
+    </div>
+    <div class="popular-product">
+      <h2>Популярные товары</h2>
+      <div class="product-card-all">
+        {% for product in popular_products%}
+        <div class="product-card">
+          <img src="{{product.image.url}}" alt="" />
+          <a href=""
+            ><p>
+              {{product.title}}
+            </p></a
+          >
+          <h3>{{product.price}}</h3>
+          <button class="btn-in-basket">
+            {% if user.is_authenticated %}
+            <a href="basket-inner.html">В корзину</a>{{user}}
+            {% else %}
+            <a disabled>В корзину</a>
+            {%endif%}
+          </button>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <h1 class="title-hints">Как оформить покупку?</h1>
+    <div class="hints-all">
+      <div class="hints">
+        <img class="hints-img1" src="{% static 'img/paste.png'%}" alt="" />
+        <a href="">
+          <p>
+            Найдите нужный товар <br />
+            по названию или в каталоге
+          </p></a
+        >
+      </div>
+      <div class="hints">
+        <img class="hints-img2" src="{% static 'img/Component 8.png'%}" alt="" />
+        <a href=""
+          ><p>
+            Добавьте выбранный <br />
+            товар в корзину
+          </p></a
+        >
+      </div>
+      <div class="hints">
+        <img class="hints-img2" src="{% static 'img/shop.png'%}" alt="" />
+        <a href="">
+          <p>
+            Выберите удобную по <br />
+            расположению и выгодную <br />
+            по цене аптеку
+          </p></a
+        >
+      </div>
+      <div class="hints">
+        <img class="hints-img2" src="{% static 'img/Component 8 (1).png'%}" alt="" />
+        <a href=""
+          ><p>
+            Заберите<br />
+            забронированный товар в <br />
+            удобное для Вас время
+          </p></a
+        >
+      </div>
+    </div>
+
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+      <!-- Full-width images with number and caption text -->
+      <div class="mySlides fade" style="display: block">
+        <img src="{% static 'img/logo2.png'%}" style="width: 100%" />
+      </div>
+      <div class="mySlides fade" style="display: none">
+        <img src="{% static 'img/logo2.png'%}" style="width: 100%" />
+      </div>
+      <div class="mySlides fade" style="display: none">
+        <img src="{% static 'img/logo2.png'%}" style="width: 100%" />
+      </div>
+
+      <!-- Next and previous buttons -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <!-- The dots/circles -->
+    <div style="text-align: center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+
+    <br />
+    <footer>
+      <div class="footer-content">
+        <div class="about-we">
+          <h1>О нас</h1>
+          <ul>
+            <li><a href="#">О сервисе </a></li>
+            <li><a href="#">Реквизиты</a></li>
+            <li><a href="#">Контакты</a></li>
+            <li><a href="#">Обратная связь</a></li>
+          </ul>
+        </div>
+        <div class="user">
+          <h1>Пользователям</h1>
+          <ul>
+            <li><a href="#">Как сделать заказ</a></li>
+            <li><a href="#">Доставка и оплата</a></li>
+            <li><a href="#">Условия возврата</a></li>
+            <li><a href="#">Вопросы и ответы</a></li>
+            <li><a href="#">Безопасность платежей</a></li>
+          </ul>
+        </div>
+        <div class="partner">
+          <h1>Партнерам</h1>
+          <ul>
+            <li><a href="#">Подключение вашей аптеки</a></li>
+            <li><a href="#">Производителям, брендам</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="line"></div>
+      <h4 class="finish-text">
+        © 2023 По Рецепту <br />
+        Все права защищены
+      </h4>
+    </footer>
+    <script src="{%static 'js/script.js'%}"></script>
+  </body>
+</html>

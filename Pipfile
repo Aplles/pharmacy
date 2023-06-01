@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pipenv = "*"
+django = "*"
+django-split-settings = "*"
+django-environ = "*"
+pillow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

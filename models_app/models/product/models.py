@@ -19,6 +19,7 @@ class Product(models.Model):
     vacation = models.CharField(max_length=20, choices=VACATION_CHOICES, verbose_name='Отпуск', default=NOT_RECEPT)
     expiration_date = models.CharField(max_length=50, verbose_name='Срок годности')
     description = models.TextField(verbose_name='Описание')
+    quantity = models.IntegerField(default=1, verbose_name='Количесвто')
 
     def __str__(self):
         return self.title

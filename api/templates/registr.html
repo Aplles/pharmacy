@@ -1,0 +1,84 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'css/registr-style.css'%}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div class="city-head">
+      <h2 class="city-text">
+        Ваш город: <a class="city-href" href="">Москва</a>
+      </h2>
+      <h2 class="city-text2">Помощь покупателям</h2>
+    </div>
+    <div class="nav-bar">
+      <!-- навигация -->
+      <a href="index.html"
+        ><img class="nav-bar-logo" src="img/Logotype.png" alt=""
+      /></a>
+
+      <!-- Модальный -->
+
+      <!-- строка поиска -->
+      <div class="icon-cards">
+        <div class="icon">
+            <img class="stat-icon" src="{% static 'img/off.png'%}" alt=""/>
+            <a class="icon-cards-text" href="{%url 'login'%}">Войти</a>
+        </div>
+        <div class="icon">
+            <img src="{% static 'img/like.png'%}" alt=""/>
+            <a class="icon-cards-text" href="login.html">Заказы</a>
+        </div>
+        <div class="icon">
+            <img class="basket-icon" src="{% static 'img/backet.png'%}" alt=""/>
+            <a class="icon-cards-text" href="basket.html">Корзина</a>
+        </div>
+    </div>
+    </div>
+    <!-- навигация по лекарствам -->
+
+    <form action="#">
+      <div class="container">
+        <h1>Регистрация</h1>
+        <hr />
+        <label for="email"><b>Введите email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required />
+        <label for="email"><b>Введите Логин</b></label>
+        <input type="text" placeholder="Enter Login" name="email" required />
+        <label for="psw"><b>Пароль</b></label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="psw"
+          required />
+
+        <label for="psw-repeat"><b>Повторите пароль</b></label>
+        <input
+          type="password"
+          placeholder="Repeat Password"
+          name="psw-repeat"
+          required />
+        <hr />
+        <button type="submit" class="registerbtn">
+          <h3>Зарегистрироваться</h3>
+        </button>
+      </div>
+
+      <div class="container signin">
+        <p class="signin">
+          Если у вас есть аккаут,<a href="{% url 'login'%}">Войдите</a>.
+        </p>
+      </div>
+    </form>
+    <script src="script.js"></script>
+  </body>
+</html>

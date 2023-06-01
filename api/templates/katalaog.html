@@ -1,0 +1,176 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/katalog.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div class="city-head">
+      <h2 class="city-text">
+        Ваш город: <a class="city-href" href="">Москва</a>
+      </h2>
+      <h2 class="city-text2">Помощь покупателям</h2>
+    </div>
+    <div class="nav-bar">
+      <a href="{% url 'index'%}"
+        ><img class="nav-bar-logo" src="{% static 'img/Logotype.png'%}" alt=""
+      /></a>
+
+      <!-- Модальный -->
+
+      <div class="nav-search-div">
+        <button class="search-form-nav-btn">
+          <img src="{% static 'img/Round.png'%}" alt="" />
+        </button>
+        <input type="search" id="lname" name="lname" placeholder="Поиск" />
+      </div>
+      <div class="icon-cards">
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="vhod.html">Войти</a>
+        </div>
+        <div class="icon">
+          <img src="{% static 'img/like.png'%}" alt="" />
+          <a class="icon-cards-text" href="login.html">Заказы</a>
+        </div>
+        <div class="icon">
+          <img class="basket-icon" src="{% static 'img/backet.png'%}" alt="" />
+          <a class="icon-cards-text" href="basket.html">Корзина</a>
+        </div>
+      </div>
+    </div>
+   <div class="slideshow-container">
+      <!-- Full-width images with number and caption text -->
+      <div class="mySlides fade" style="display: block">
+        <img src="{% static 'img/logo2.png'%}" style="width: 100%" />
+      </div>
+      <div class="mySlides fade" style="display: none">
+        <img src="{% static 'img/logo2.png'%}" style="width: 100%" />
+      </div>
+      <div class="mySlides fade" style="display: none">
+        <img src="{% static 'img/logo2.png'%}" style="width: 100%" />
+      </div>
+
+      <!-- Next and previous buttons -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <!-- The dots/circles -->
+    <div style="text-align: center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+    <br />
+    <div class="type-medicine">
+      {% for category in categories %}
+      <div class="card-medicine">
+        <a href="katalaog.html"> <h2>{{category.title}}</h2></a>
+        <img src="{{category.image.url}}" alt="" />
+      </div>
+      {% endfor %}
+    </div>
+    <div class="katalog-box">
+      <form class="filter-box">
+        <p class="main-cat">
+          <a class="main-cat" href="index.html">Главная</a> > Лекарства
+        </p>
+        <h1 class="torg-title">сортировать по:</h1>
+        <div class="scroll-name-two radio">
+          <label for="radio1" class="">
+            <input type="radio" name="radio" id="radio1" />
+            Сначала дешевле
+          </label>
+          <label for="radio2">
+            <input type="radio" name="radio" id="radio2" />
+            Сначала дороже
+          </label>
+        </div>
+        <h1 class="torg-title">Цена</h1>
+        <div class="scroll-name-one">
+          <label for="">от <input type="text" name="" id="" /></label>
+          <label for="">до <input type="text" name="" id="" /></label>
+        </div>
+        <h1 class="torg-title">Рецептурный отпуск</h1>
+        <div class="scroll-name-two">
+          <ul>
+            <li class="scroll-name-li">
+              <input class="scroll-check" id="html" type="checkbox" />
+              <label for="html">Без рецепта</label>
+            </li>
+            <li>
+              <input id="html" type="checkbox" />
+              <label for="html">По рецепту</label>
+            </li>
+          </ul>
+        </div>
+        <button class="btn-in-filter">Применить</button>
+      </form>
+
+      <div class="katalog-product">
+        <div class="katalog-product-card-line1">
+          {% for product in products%}
+        <div class="product-card">
+          <img src="{{product.image.url}}" alt="" />
+          <a href=""
+            ><p>
+              {{product.title}}
+            </p></a
+          >
+          <h3>{{product.price}}</h3>
+          <button class="btn-in-basket">
+            <a href="basket-inner.html">В корзину</a>
+          </button>
+        </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-content">
+        <div class="about-we">
+          <h1>О нас</h1>
+          <ul>
+            <li><a href="#">О сервисе </a></li>
+            <li><a href="#">Реквизиты</a></li>
+            <li><a href="#">Контакты</a></li>
+            <li><a href="#">Обратная связь</a></li>
+          </ul>
+        </div>
+        <div class="user">
+          <h1>Пользователям</h1>
+          <ul>
+            <li><a href="#">Как сделать заказ</a></li>
+            <li><a href="#">Доставка и оплата</a></li>
+            <li><a href="#">Условия возврата</a></li>
+            <li><a href="#">Вопросы и ответы</a></li>
+            <li><a href="#">Безопасность платежей</a></li>
+          </ul>
+        </div>
+        <div class="partner">
+          <h1>Партнерам</h1>
+          <ul>
+            <li><a href="#">Подключение вашей аптеки</a></li>
+            <li><a href="#">Производителям, брендам</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="line"></div>
+      <h4 class="finish-text">
+        © 2023 По Рецепту <br />
+        Все права защищены
+      </h4>
+    </footer>
+    <script src="{%static 'js/script.js'%}"></script>
+  </body>
+</html>
