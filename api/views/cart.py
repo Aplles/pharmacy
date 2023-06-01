@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import render
 from django.views import View
 
@@ -12,6 +13,7 @@ class CartRenderView(View):
             cart_items = CartItem.objects.filter(cart=cart)
             return render(request, "basket.html", context={
                 "cart_items": cart_items,
+                "summ": CartItem.objects.aggregate(Sum('product__price')),
             })
         else:
             return render(request, "basket.html")
@@ -19,9 +21,34 @@ class CartRenderView(View):
 
 class CartDeleteAllView(View):
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         cart = Cart.objects.get(user=request.user)
         cart_items = CartItem.objects.filter(cart=cart)
         for item in cart_items:
             item.delete()
-        return render(request, "cart.html")
+        return render(request, "basket.html")
+
+
+class CartQuantityAddView(View):
+    def get(self, request, *args, **kwargs):
+        cart = Cart.objects.get(user=request.user)
+        cart_items = CartItem.objects.get(cart=cart, product_id=kwargs["id"])
+        cart_items.quantity += 1
+        cart_items.save()
+        return render(request, "basket.html", context={
+            "cart_items": CartItem.objects.filter(cart=cart),
+            "summ": CartItem.objects.aggregate(Sum('product__price')),
+        })
+
+
+class CartQuantityDelView(View):
+    def get(self, request, *args, **kwargs):
+        cart = Cart.objects.get(user=request.user)
+        cart_items = CartItem.objects.get(cart=cart, product_id=kwargs["id"])
+        if not cart_items.quantity - 1 == 0:
+            cart_items.quantity -= 1
+            cart_items.save()
+        return render(request, "basket.html", context={
+            "cart_items": CartItem.objects.filter(cart=cart),
+            "summ": CartItem.objects.aggregate(Sum('product__price')),
+        })
