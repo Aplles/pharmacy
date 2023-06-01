@@ -37,19 +37,32 @@
         </form>
       </div>
       <div class="icon-cards">
+         {% if request.user.is_authenticated %}
         <div class="icon">
           <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
-          <a class="icon-cards-text" href="{% url 'login' %}">Войти</a>
+          <a class="icon-cards-text" href="{% url 'user_orders' %}">{{user}}</a>
         </div>
+        {% else %}
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="{%url 'login'%}">Войти</a>
+        </div>
+        {% endif %}
+
         <div class="icon">
           <img src="{% static 'img/like.png'%}" alt="" />
-          <a class="icon-cards-text" href="login.html">Заказы</a>
+          {% if request.user.is_authenticated %}
+          <a class="icon-cards-text" href="{%url 'user_orders'%}">Заказы</a>
+          {% else %}
+          <a class="icon-cards-text">Заказы</a>
+          {% endif %}
         </div>
         <div class="icon">
           <img class="basket-icon" src="{% static 'img/backet.png'%}" alt="" />
           <a class="icon-cards-text" href="{% url 'cart' %}">Корзина</a>
         </div>
       </div>
+    </div>
     </div>
    <div class="slideshow-container">
       <!-- Full-width images with number and caption text -->
@@ -140,11 +153,15 @@
           >
           <h3>{{product.price}}</h3>
           <button class="btn-in-basket">
-            {% if product.added %}
+            {% if user.is_authenticated %}
+              {% if product.added %}
                 <a >Уже в корзине</a>
               {% else %}
               <a href="{% url 'add_to_cart' product.id %}">В корзину</a>
               {% endif %}
+            {% else %}
+              <a disabled>В корзину</a>
+            {%endif%}
           </button>
         </div>
         {% endfor %}

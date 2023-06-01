@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Оформить заказ</title>
+    <link rel="stylesheet" href="{% static 'css/oformlenie-style.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div class="city-head">
+      <h2 class="city-text">
+        Ваш город: <a class="city-href" href="">Москва</a>
+      </h2>
+      <h2 class="city-text2">Помощь покупателям</h2>
+    </div>
+    <div class="nav-bar">
+      <!-- навигация -->
+      <a href="{% url 'index'%}"
+        ><img class="nav-bar-logo" src="{% static 'img/Logotype.png'%}" alt=""
+      /></a>
+
+      <!-- Модальный -->
+      <!-- строка поиска -->
+     <div class="icon-cards">
+         {% if request.user.is_authenticated %}
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="{%url 'logout'%}">{{user}}</a>
+        </div>
+        {% else %}
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="{%url 'login'%}">Войти</a>
+        </div>
+        {% endif %}
+
+        <div class="icon">
+          <img src="{% static 'img/like.png'%}" alt="" />
+          {% if request.user.is_authenticated %}
+          <a class="icon-cards-text" href="{%url 'user_orders'%}">Заказы</a>
+          {% else %}
+          <a class="icon-cards-text">Заказы</a>
+          {% endif %}
+        </div>
+        <div class="icon">
+          <img class="basket-icon" src="{% static 'img/backet.png'%}" alt="" />
+          <a class="icon-cards-text" href="{% url 'cart' %}">Корзина</a>
+        </div>
+      </div>
+    </div>
+    <!-- навигация по лекарствам -->
+
+    <!-- бокс оформления-->
+    <div class="box-ordering">
+      <div class="content-box-ordering-all">
+        <div class="href-content">
+          <a href="index.html">Главная></a>
+          <a href="basket-inner.html"> Корзина ></a>
+          <a href="#">Оформление заказа</a>
+        </div>
+        <h1 class="title-order">Оформление заказа</h1>
+        {% for item in cart_items%}
+        <div class="card-ordering">
+          <img src="{{item.product.image.url}}" alt="" />
+          <div class="card-ordering-overview">
+            <h1>{{item.product.title}}</h1>
+            <h3>Количество: {{item.quantity}}</h3>
+          </div>
+          <div class="сard-ordering-overview-two">
+            <h1>Цена: {{item.product.price}}</h1>
+            <button class="overview-cancel-btn">
+              <a href="{% url 'delete_from_order' item.product.id%}">Отменить</a>
+            </button>
+          </div>
+        </div>
+        {% endfor%}
+      </div>
+      <form class="ordering-map-box" method="post" action="{%url 'order'%}">
+        {% csrf_token%}
+        <iframe
+          class="ordering-map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d71830.83607490042!2d37.54071802340107!3d55.76347676079905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bbaad65ce11%3A0x135c77414421515!2z0JDQv9GC0LXQutCwIOKEliA4!5e0!3m2!1sru!2sru!4v1684491086763!5m2!1sru!2sru"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <br />
+        <label for=""
+          >Введите адрес доставки
+          <input
+            class="adress"
+            type="text"
+            name="adress"
+            id="adress"
+            placeholder="adress"
+        /></label>
+        <br />
+        <button type="submit" class="buttonn">Оформить заказ</button>
+      </form>
+    </div>
+    <footer>
+      <div class="footer-content">
+        <div class="about-we">
+          <h1>О нас</h1>
+          <ul>
+            <li><a href="#">О сервисе </a></li>
+            <li><a href="#">Реквизиты</a></li>
+            <li><a href="#">Контакты</a></li>
+            <li><a href="#">Обратная связь</a></li>
+          </ul>
+        </div>
+        <div class="user">
+          <h1>Пользователям</h1>
+          <ul>
+            <li><a href="#">Как сделать заказ</a></li>
+            <li><a href="#">Доставка и оплата</a></li>
+            <li><a href="#">Условия возврата</a></li>
+            <li><a href="#">Вопросы и ответы</a></li>
+            <li><a href="#">Безопасность платежей</a></li>
+          </ul>
+        </div>
+        <div class="partner">
+          <h1>Партнерам</h1>
+          <ul>
+            <li><a href="#">Подключение вашей аптеки</a></li>
+            <li><a href="#">Производителям, брендам</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="line"></div>
+      <h4 class="finish-text">
+        © 2023 По Рецепту <br />
+        Все права защищены
+      </h4>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

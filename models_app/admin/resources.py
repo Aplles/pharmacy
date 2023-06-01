@@ -23,7 +23,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "number", "cart", "adress", "total_price")
+    list_display = ("id", "user", "number", "adress", "total_price")
     list_filter = ('user', 'number')
 
 

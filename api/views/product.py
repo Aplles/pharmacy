@@ -10,9 +10,9 @@ from models_app.models import Category, CartItem
 class ProductListView(View):
 
     def get(self, request, *args, **kwargs):
-        products = Product.objects.all().annotate(added =Value(False))
+        products = Product.objects.all().annotate(added=Value(False))
         for product in products:
-            product.added=True if CartItem.objects.filter(product_id=product.id) else ""
+            product.added = True if CartItem.objects.filter(product_id=product.id) else ""
         if len(products) > 5:
             products = products[:5]
         return render(request, "index.html", context={
@@ -24,8 +24,11 @@ class ProductListView(View):
 class ProductForCatalogListView(View):
 
     def get(self, request, *args, **kwargs):
+        products = Product.objects.all().annotate(added=Value(False))
+        for product in products:
+            product.added = True if CartItem.objects.filter(product_id=product.id) else ""
         return render(request, "katalaog.html", context={
-            "products": Product.objects.all(),
+            "products": products,
             "categories": Category.objects.all()
         })
 
@@ -38,21 +41,24 @@ class ProductForOrdersListView(View):
         for order in orders:
             items = CartItemOrder.objects.filter(order=order)
             for item in items:
-                product_list.append(item.cart_item.product)
+                product_list.append(item.product)
         return render(request, "user/products.html", context={
-            "products": product_list
+            "products": set(product_list)
         })
 
 
 class ProductDetailView(View):
 
     def get(self, request, *args, **kwargs):
+        product = Product.objects.get(id=kwargs["id"])
+        added = ""
+        if request.user.is_authenticated:
+            added = True if CartItem.objects.filter(product_id=product.id,
+                                                    cart=Cart.objects.get(user=request.user)) else ""
         return render(request, "card.html", context={
-            "product": Product.objects.get(id=kwargs["id"]),
+            "product": product,
             "categories": Category.objects.all(),
-            "added": True if CartItem.objects.filter(product_id=kwargs["id"],
-                                                     cart=Cart.objects.get(user=request.user)
-                                                     ) else "",
+            "added": added,
         })
 
 
