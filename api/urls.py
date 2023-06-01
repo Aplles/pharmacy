@@ -1,6 +1,7 @@
 from django.urls import path
-from api.views.user import UserLoginRegisterView, logout_view, UserUpdateInfoView, UserUpdatePasswordView, UserLoginRenderView, UserRegisterRenderView
-from api.views.cart import CartRenderView, CartDeleteAllView
+from api.views.user import UserLoginRegisterView, logout_view, UserUpdateInfoView, UserUpdatePasswordView, \
+    UserLoginRenderView, UserRegisterRenderView
+from api.views.cart import CartRenderView, CartDeleteAllView, CartQuantityDelView, CartQuantityAddView
 from api.views.cartitem import CartItemCreateView, CartItemDeleteView
 from api.views.product import ProductListView, ProductDetailView, ProductListByCategoryView, ProductForOrdersListView, \
     ProductForCatalogListView, SearchProductListView
@@ -18,6 +19,9 @@ urlpatterns = [
     # cart
     path("cart/", CartRenderView.as_view(), name="cart"),
     path("cart/delete_all/", CartDeleteAllView.as_view(), name="clear_cart"),
+
+    path("cart/<int:id>/quantity_add/", CartQuantityAddView.as_view(), name="item_quantity_add"),
+    path("cart/<int:id>/quantity_del/", CartQuantityDelView.as_view(), name="item_quantity_del"),
 
     # cart items
     path("cart/product/<int:id>/create/", CartItemCreateView.as_view(), name="add_to_cart"),

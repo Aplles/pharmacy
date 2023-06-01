@@ -22,7 +22,7 @@
     <h2 class="city-text2">Помощь покупателям</h2>
 </div>
 <div class="nav-bar">
-    <a href="index.html"
+    <a href="{% url 'index' %}"
     ><img class="nav-bar-logo" src="{% static 'img/Logotype.png' %}" alt=""
     /></a>
     <div class="nav-search-div">
@@ -34,33 +34,40 @@
         </form>
     </div>
     <div class="icon-cards">
+        {% if request.user.is_authenticated %}
         <div class="icon">
-            <img class="stat-icon" src="{% static 'img/off.png' %}" alt=""/>
-            <a class="icon-cards-text" href="vhod.html">Войти</a>
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="{%url 'logout'%}">{{user}}</a>
         </div>
+        {% else %}
+        <div class="icon">
+          <img class="stat-icon" src="{% static 'img/off.png'%}" alt="" />
+          <a class="icon-cards-text" href="{%url 'login'%}">Войти</a>
+        </div>
+        {% endif %}
         <div class="icon">
             <img src="{% static 'img/like.png' %}" alt=""/>
             <a class="icon-cards-text" href="login.html">Заказы</a>
         </div>
         <div class="icon">
             <img class="basket-icon" src="{% static 'img/backet.png' %}" alt=""/>
-            <a class="icon-cards-text" href="basket.html">Корзина</a>
+            <a class="icon-cards-text" href="{% url 'cart' %}">Корзина</a>
         </div>
     </div>
 </div>
 
 <div class="href">
     <a href="{% url 'index' %}">Главная ></a>
-    <a href="basket.html">Корзина</a>
+    <a href="{%url 'cart'%}">Корзина</a>
 </div>
 
 {% if request.user.is_authenticated %}
 
-{% if cart_items.count != 0 %}
+{% if summ.product__price__sum != None %}
 <div class="basket-all">
     <div class="title-and-filters">
         <h1>Корзина</h1>
-        <button class="clear-btn"><a href="#">Очистить корзину</a></button>
+        <button class="clear-btn"><a href="{% url 'clear_cart' %}">Очистить корзину</a></button>
     </div>
 
     <div class="box">
@@ -72,17 +79,24 @@
                     <h2>{{ item.product.title }}</h2>
                 </div>
                 <div class="counter">
-                    <button class="decrease" type="button">-</button>
-                    <button class="increase" type="button">+</button>
+                    <a href="{% url 'item_quantity_del' item.product.id %}">
+                        <button class="decrease" type="button">-</button>
+                    </a>
+
+                    <a href="{% url 'item_quantity_add' item.product.id %}">
+                        <button class="increase" type="button">+</button>
+                    </a>
                     <input
                             class="counter-quantity"
                             id="quantityid"
                             type="text"
                             name="field"
-                            value="1"/>
+                            value="{{ item.quantity }}"/>
                 </div>
                 <h4 class="price-card">{{ item.product.price }} ₽</h4>
-                <button class="vector-btn">x</button>
+                <a href="{% url 'delete_from_cart' item.product.id %}">
+                    <button class="vector-btn">x</button>
+                </a>
             </div>
             {% endfor %}
         </div>
