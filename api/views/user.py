@@ -21,7 +21,6 @@ class UserRegisterRenderView(View):
 class UserLoginRegisterView(View):
 
     def get(self, request, *args, **kwargs):
-        a=request.GET['username']
         user = authenticate(request, username=request.GET['username'], password=request.GET['password'])
         if user:
             login(request, user)
@@ -69,7 +68,7 @@ class UserUpdatePasswordView(View):
     def post(self, request, *args, **kwargs):
         user = request.user
         if request.POST['new_pass']:
-            user.set_password(request.POST['new_pass'])
+            user.password(request.POST['new_pass'])
         user.save()
         return redirect('login')
 
