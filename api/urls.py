@@ -1,11 +1,7 @@
 from django.urls import path
 from api.views.user import UserLoginRegisterView, logout_view, UserUpdateInfoView, UserUpdatePasswordView, \
     UserLoginRenderView, UserRegisterRenderView
-<<<<<<< HEAD
-from api.views.cart import CartRenderView, CartDeleteAllView
-=======
 from api.views.cart import CartRenderView, CartDeleteAllView, CartQuantityDelView, CartQuantityAddView
->>>>>>> origin/develop
 from api.views.cartitem import CartItemCreateView, CartItemDeleteView
 from api.views.product import ProductListView, ProductDetailView, ProductListByCategoryView, ProductForOrdersListView, \
     ProductForCatalogListView, SearchProductListView
