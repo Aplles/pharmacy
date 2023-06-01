@@ -36,7 +36,19 @@ class OrderListView(View):
         order_items_list = []
         for order in orders:
             order_items_list.append(CartItemOrder.objects.filter(order=order))
-        return render(request, "user_orders.html", context={
+        return render(request, "user/index.html", context={
             "orders": orders,
             "items": order_items_list
         })
+
+
+class ReceptRenderView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, "user/recept.html")
+
+
+class ReceptRender1View(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, "user/recept2.html")

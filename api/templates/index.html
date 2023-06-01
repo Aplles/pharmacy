@@ -53,7 +53,11 @@
 
         <div class="icon">
           <img src="{% static 'img/like.png'%}" alt="" />
-          <a class="icon-cards-text" href="login.html">Заказы</a>
+          {% if request.user.is_authenticated %}
+          <a class="icon-cards-text" href="{%url 'user_orders'%}">Заказы</a>
+          {% else %}
+          <a class="icon-cards-text">Заказы</a>
+          {% endif %}
         </div>
         <div class="icon">
           <img class="basket-icon" src="{% static 'img/backet.png'%}" alt="" />
@@ -86,7 +90,7 @@
     <div class="type-medicine">
       {% for category in categories %}
       <div class="card-medicine">
-        <a href="katalaog.html"> <h2>{{category.title}}</h2></a>
+        <a href="{% url 'categories' category.pk%}"> <h2>{{category.title}}</h2></a>
         <img src="{{category.image.url}}" alt="" />
       </div>
       {% endfor %}
@@ -105,7 +109,11 @@
           <h3>от {{product.price}} р.</h3>
           <button class="btn-in-basket">
             {% if user.is_authenticated %}
+              {% if product.added %}
+                <a >Уже в корзине</a>
+              {% else %}
               <a href="{% url 'add_to_cart' product.id %}">В корзину</a>
+              {% endif %}
             {% else %}
               <a disabled>В корзину</a>
             {%endif%}
